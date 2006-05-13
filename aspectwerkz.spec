@@ -1,14 +1,15 @@
 Summary:	AOP for Java
+Summary(pl):	AOP dla Javy
 Name:		aspectwerkz
 Version:	2.0
 Release:	0.1
 License:	BSD-style License
 Group:		Development/Languages/Java
-URL:		http://aspectwerkz.codehaus.org/
 Source0:	http://dist.codehaus.org/aspectwerkz/distributions/%{name}-%{version}.zip
 # Source0-md5:	d7462b4d76f268e78a3843a28da71990
 Patch0:		%{name}2-build_xml.patch
 Patch1:		%{name}2-script.patch
+URL:		http://aspectwerkz.codehaus.org/
 BuildRequires:	asm
 BuildRequires:	concurrent
 BuildRequires:	dom4j
@@ -46,27 +47,49 @@ swapping the implementation of your introductions at runtime. Your
 aspects can be defined using either an XML definition file or using
 Runtime Attributes.
 
+%description -l pl
+AspectWerkz to dynamiczny, lekki i wydajny szkielet AOP/AOSD dla Javy.
+Wykorzystuje modyfikowanie bajtkodu do modyfikowania klas w czasie
+dzia³ania. Przechwytuje i modyfikuje klasy wczytywane przez wszystkie
+procedury ³adowania klas oprócz startowej. Ma bogady model punktu
+³±czenia. Aspekty, porady i wprowadzenia s± napisane w czystej Javie,
+a klasy docelowe mog± byæ zwyk³ymi POJO. Istnieje mo¿liwo¶æ dodawania,
+usuwania i restrukturyzacji porad, a tak¿e zamiany implementacji na
+w³asn± w trakcie dzia³ania. Aspekty mog± byæ definiowane przy u¿yciu
+pliku definicji XML lub Runtime Attributes.
 
 %package javadoc
 Summary:	Javadoc for %{name}
+Summary(pl):	Dokumentacja javadoc dla pakietu %{name}
 Group:		Documentation
 
 %description javadoc
-%{summary}.
+Javadoc for %{name}.
+
+%description javadoc -l pl
+Dokumentacja javadoc dla pakietu %{name}.
 
 %package manual
 Summary:	Documents for %{name}
+Summary(pl):	Dokumentacja dla pakietu %{name}
 Group:		Documentation
 
 %description manual
-%{summary}.
+Documents for %{name}.
+
+%description manual -l pl
+Dokumentacja dla pakietu %{name}.
 
 %package demo
 Summary:	Samples for %{name}
+Summary(pl):	Przyk³ady dla pakietu %{name}
 Group:		Documentation
 
 %description demo
-%{summary}.
+Samples for %{name}.
+
+%description demo -l pl
+Przyk³ady dla pakietu %{name}.
 
 %prep
 %setup -q
@@ -125,10 +148,15 @@ cp -p target/%{name}-nodeps-jdk14-%{version}.jar \
   $RPM_BUILD_ROOT%{_javadir}/%{name}-nodeps-jdk14-%{version}.jar
 cp -p target/%{name}-nodeps-jdk5-%{version}.jar \
   $RPM_BUILD_ROOT%{_javadir}/%{name}-nodeps-jdk5-%{version}.jar
-(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
+
+cd $RPM_BUILD_ROOT%{_javadir}
+for jar in *-%{version}.jar; do
+	ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`
+done
+cd -
+
 install -d $RPM_BUILD_ROOT%{_bindir}
 cp -p bin/aspectwerkz $RPM_BUILD_ROOT%{_bindir}
-
 
 # javadoc
 install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
@@ -164,7 +192,7 @@ fi
 %defattr(644,root,root,755)
 %doc %{_docdir}/%{name}-%{version}/LICENSE.txt
 %{_javadir}/*.jar
-%attr(755, root, root) %{_bindir}/aspectwerkz
+%attr(755,root,root) %{_bindir}/aspectwerkz
 
 %files javadoc
 %defattr(644,root,root,755)
