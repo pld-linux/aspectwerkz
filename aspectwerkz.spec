@@ -14,7 +14,7 @@ BuildRequires:	asm
 BuildRequires:	concurrent
 BuildRequires:	dom4j
 BuildRequires:	gnu.trove
-BuildRequires:	jakarta-ant >= 1.6
+BuildRequires:	ant >= 1.6
 BuildRequires:	jarjar
 BuildRequires:	java-1.4.2-bea
 BuildRequires:	java-1.5.0-sun-devel
