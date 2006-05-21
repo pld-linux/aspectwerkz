@@ -10,21 +10,21 @@ Source0:	http://dist.codehaus.org/aspectwerkz/distributions/%{name}-%{version}.z
 Patch0:		%{name}2-build_xml.patch
 Patch1:		%{name}2-script.patch
 URL:		http://aspectwerkz.codehaus.org/
+BuildRequires:	ant >= 1.6
 BuildRequires:	asm
 BuildRequires:	concurrent
 BuildRequires:	dom4j
 BuildRequires:	gnu.trove
-BuildRequires:	ant >= 1.6
 BuildRequires:	jarjar
 BuildRequires:	java-1.4.2-bea
 BuildRequires:	java-1.5.0-sun-devel
 BuildRequires:	javassist
-#BuildRequires:	jpackage-utils >= 0:1.6
 BuildRequires:	jrexx
 BuildRequires:	junit
 BuildRequires:	junitperf
 BuildRequires:	piccolo
 BuildRequires:	qdox
+#BuildRequires:	rpm-javaprov
 Requires:	concurrent
 Requires:	dom4j
 Requires:	gnu.trove
