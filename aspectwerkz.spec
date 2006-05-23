@@ -24,7 +24,6 @@ BuildRequires:	junit
 BuildRequires:	junitperf
 BuildRequires:	piccolo
 BuildRequires:	qdox
-#BuildRequires:	rpm-javaprov
 Requires:	concurrent
 Requires:	dom4j
 Requires:	gnu.trove
