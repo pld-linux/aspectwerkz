@@ -1,5 +1,5 @@
 Summary:	AOP for Java
-Summary(pl):	AOP dla Javy
+Summary(pl.UTF-8):   AOP dla Javy
 Name:		aspectwerkz
 Version:	2.0
 Release:	0.1
@@ -46,49 +46,49 @@ swapping the implementation of your introductions at runtime. Your
 aspects can be defined using either an XML definition file or using
 Runtime Attributes.
 
-%description -l pl
+%description -l pl.UTF-8
 AspectWerkz to dynamiczny, lekki i wydajny szkielet AOP/AOSD dla Javy.
 Wykorzystuje modyfikowanie bajtkodu do modyfikowania klas w czasie
-dzia³ania. Przechwytuje i modyfikuje klasy wczytywane przez wszystkie
-procedury ³adowania klas oprócz startowej. Ma bogady model punktu
-³±czenia. Aspekty, porady i wprowadzenia s± napisane w czystej Javie,
-a klasy docelowe mog± byæ zwyk³ymi POJO. Istnieje mo¿liwo¶æ dodawania,
-usuwania i restrukturyzacji porad, a tak¿e zamiany implementacji na
-w³asn± w trakcie dzia³ania. Aspekty mog± byæ definiowane przy u¿yciu
+dziaÅ‚ania. Przechwytuje i modyfikuje klasy wczytywane przez wszystkie
+procedury Å‚adowania klas oprÃ³cz startowej. Ma bogady model punktu
+Å‚Ä…czenia. Aspekty, porady i wprowadzenia sÄ… napisane w czystej Javie,
+a klasy docelowe mogÄ… byÄ‡ zwykÅ‚ymi POJO. Istnieje moÅ¼liwoÅ›Ä‡ dodawania,
+usuwania i restrukturyzacji porad, a takÅ¼e zamiany implementacji na
+wÅ‚asnÄ… w trakcie dziaÅ‚ania. Aspekty mogÄ… byÄ‡ definiowane przy uÅ¼yciu
 pliku definicji XML lub Runtime Attributes.
 
 %package javadoc
 Summary:	Javadoc for %{name}
-Summary(pl):	Dokumentacja javadoc dla pakietu %{name}
+Summary(pl.UTF-8):   Dokumentacja javadoc dla pakietu %{name}
 Group:		Documentation
 
 %description javadoc
 Javadoc for %{name}.
 
-%description javadoc -l pl
+%description javadoc -l pl.UTF-8
 Dokumentacja javadoc dla pakietu %{name}.
 
 %package manual
 Summary:	Documents for %{name}
-Summary(pl):	Dokumentacja dla pakietu %{name}
+Summary(pl.UTF-8):   Dokumentacja dla pakietu %{name}
 Group:		Documentation
 
 %description manual
 Documents for %{name}.
 
-%description manual -l pl
+%description manual -l pl.UTF-8
 Dokumentacja dla pakietu %{name}.
 
 %package demo
 Summary:	Samples for %{name}
-Summary(pl):	Przyk³ady dla pakietu %{name}
+Summary(pl.UTF-8):   PrzykÅ‚ady dla pakietu %{name}
 Group:		Documentation
 
 %description demo
 Samples for %{name}.
 
-%description demo -l pl
-Przyk³ady dla pakietu %{name}.
+%description demo -l pl.UTF-8
+PrzykÅ‚ady dla pakietu %{name}.
 
 %prep
 %setup -q
