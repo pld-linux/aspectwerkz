@@ -1,5 +1,5 @@
 Summary:	AOP for Java
-Summary(pl.UTF-8):   AOP dla Javy
+Summary(pl.UTF-8):	AOP dla Javy
 Name:		aspectwerkz
 Version:	2.0
 Release:	0.1
@@ -59,7 +59,7 @@ pliku definicji XML lub Runtime Attributes.
 
 %package javadoc
 Summary:	Javadoc for %{name}
-Summary(pl.UTF-8):   Dokumentacja javadoc dla pakietu %{name}
+Summary(pl.UTF-8):	Dokumentacja javadoc dla pakietu %{name}
 Group:		Documentation
 
 %description javadoc
@@ -70,7 +70,7 @@ Dokumentacja javadoc dla pakietu %{name}.
 
 %package manual
 Summary:	Documents for %{name}
-Summary(pl.UTF-8):   Dokumentacja dla pakietu %{name}
+Summary(pl.UTF-8):	Dokumentacja dla pakietu %{name}
 Group:		Documentation
 
 %description manual
@@ -81,7 +81,7 @@ Dokumentacja dla pakietu %{name}.
 
 %package demo
 Summary:	Samples for %{name}
-Summary(pl.UTF-8):   Przykłady dla pakietu %{name}
+Summary(pl.UTF-8):	Przykłady dla pakietu %{name}
 Group:		Documentation
 
 %description demo
