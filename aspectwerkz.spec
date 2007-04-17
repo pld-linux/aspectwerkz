@@ -1,3 +1,4 @@
+%include	/usr/lib/rpm/macros.java
 Summary:	AOP for Java
 Summary(pl.UTF-8):	AOP dla Javy
 Name:		aspectwerkz
@@ -12,18 +13,20 @@ Patch1:		%{name}2-script.patch
 URL:		http://aspectwerkz.codehaus.org/
 BuildRequires:	ant >= 1.6
 BuildRequires:	asm
-BuildRequires:	concurrent
-BuildRequires:	dom4j
-BuildRequires:	gnu.trove
-BuildRequires:	jarjar
-BuildRequires:	java-1.4.2-bea
-BuildRequires:	java-1.5.0-sun-devel
-BuildRequires:	javassist
-BuildRequires:	jrexx
+#BuildRequires:	concurrent
+#BuildRequires:	dom4j
+#BuildRequires:	gnu.trove
+BuildRequires:	rpm-javaprov
+#BuildRequires:	jarjar
+#BuildRequires:	javassist
+BuildRequires:	jdk
+BuildRequires:	jpackage-utils
+#BuildRequires:	jrexx
 BuildRequires:	junit
-BuildRequires:	junitperf
-BuildRequires:	piccolo
-BuildRequires:	qdox
+#BuildRequires:	junitperf
+#BuildRequires:	piccolo
+#BuildRequires:	qdox
+BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	concurrent
 Requires:	dom4j
 Requires:	gnu.trove
@@ -60,6 +63,7 @@ pliku definicji XML lub Runtime Attributes.
 %package javadoc
 Summary:	Javadoc for %{name}
 Summary(pl.UTF-8):	Dokumentacja javadoc dla pakietu %{name}
+Requires:	jpackage-utils
 Group:		Documentation
 
 %description javadoc
@@ -92,12 +96,8 @@ Przykłady dla pakietu %{name}.
 
 %prep
 %setup -q
-# remove all binary libs
-for j in $(find . -name "*.jar"); do
-	mv $j $j.no
-done
+find -name '*.jar' | xargs rm -vf
 chmod +x bin/aspectwerkz
-
 %patch0
 %patch1
 
@@ -105,9 +105,9 @@ chmod +x bin/aspectwerkz
 export ASPECTWERKZ_HOME=$RPM_BUILD_DIR/%{name}-%{version}
 build-jar-repository -s -p lib \
 jarjar \
-asm/asm \
-asm/asm-attrs \
-asm/asm-util \
+asm \
+asm-attrs \
+asm-util \
 dom4j \
 gnu.trove \
 concurrent \
@@ -122,7 +122,7 @@ ln -sf %{_prefix}/lib/jvm/java-1.4.2-bea/jre/lib/managementapi.jar lib
 ln -sf %{_prefix}/lib/jvm/java-1.4.2-bea/jre/lib/managementserver.jar lib
 
 export JAVA_HOME=%{_prefix}/lib/jvm/java-1.5.0
-ant test cleandist
+%ant test cleandist
 #export JAVA_HOME=%{_prefix}/lib/jvm/java-1.5.0
 #ant test
 
@@ -179,23 +179,17 @@ cp -p LICENSE.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
-rm -f %{_javadocdir}/%{name}
-ln -s %{name}-%{version} %{_javadocdir}/%{name}
-
-%postun javadoc
-if [ "$1" = "0" ]; then
-	rm -f %{_javadocdir}/%{name}
-fi
+ln -sf %{name}-%{version} %{_javadocdir}/%{name}
 
 %files
 %defattr(644,root,root,755)
 %doc %{_docdir}/%{name}-%{version}/LICENSE.txt
-%{_javadir}/*.jar
 %attr(755,root,root) %{_bindir}/aspectwerkz
+%{_javadir}/*.jar
 
 %files javadoc
 %defattr(644,root,root,755)
-%doc %{_javadocdir}/%{name}-%{version}
+%{_javadocdir}/%{name}-%{version}
 %ghost %{_javadocdir}/%{name}
 
 %files manual
