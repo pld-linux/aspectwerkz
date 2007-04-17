@@ -1,0 +1,123 @@
+--- build.xml.sav	2005-03-10 12:05:48.000000000 +0100
++++ build.xml	2005-11-12 12:10:17.000000000 +0100
+@@ -44,7 +44,7 @@
+     <!--    <property name="aspectwerkz.classpath" refid="aspectwerkz.classpath" />-->
+ 
+     <!--    define the jarjar task we use to remap ASM -->
+-    <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${basedir}/lib/jarjar-0.3.jar"/>
++    <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${basedir}/lib/jarjar.jar"/>
+ 
+     <target name="cleandist" depends="clean, dist"/>
+ 
+@@ -261,8 +261,8 @@
+             <fileset dir="${main.classes}">
+                 <exclude name="**/aspectwerkz/hook/**/*"/>
+             </fileset>
+-            <zipfileset src="${basedir}/lib/asm-1.5.4-snapshot.jar"/>
+-            <zipfileset src="${basedir}/lib/asm-attrs-1.5.4-snapshot.jar"/>
++            <zipfileset src="${basedir}/lib/asm_asm.jar"/>
++            <zipfileset src="${basedir}/lib/asm_asm-attrs.jar"/>
+             <rule pattern="org.objectweb.asm.**" result="org.codehaus.aspectwerkz.@0"/>
+         </jarjar>
+         <copy tofile="${lib.dir}/aspectwerkz-${version}.jar" file="${build.dir}/aspectwerkz-${version}.jar" overwrite="true"/>
+@@ -279,8 +279,8 @@
+             <fileset dir="${main.classes}">
+                 <include name="**/aspectwerkz/hook/**/*"/>
+             </fileset>
+-            <zipfileset src="${basedir}/lib/asm-1.5.4-snapshot.jar"/>
+-            <zipfileset src="${basedir}/lib/asm-attrs-1.5.4-snapshot.jar"/>
++            <zipfileset src="${basedir}/lib/asm_asm.jar"/>
++            <zipfileset src="${basedir}/lib/asm_asm-attrs.jar"/>
+             <rule pattern="org.objectweb.asm.**" result="org.codehaus.aspectwerkz.@0"/>
+         </jarjar>
+         <copy tofile="${lib.dir}/aspectwerkz-core-${version}.jar" file="${build.dir}/aspectwerkz-core-${version}.jar" overwrite="true"/>
+@@ -297,18 +297,18 @@
+             <zipfileset src="${build.dir}/aspectwerkz-${version}.jar"/>
+             <zipfileset src="${build.dir}/aspectwerkz-extensions-${version}.jar"/>
+             <zipgroupfileset dir="${lib.dir}">
+-                <exclude name="jarjar*"/>
+-                <exclude name="aspectwerkz*"/>
+-                <exclude name="ant*"/>
+-                <exclude name="asm*"/>
+-                <exclude name="concurrent*"/>
+-                <exclude name="junit*"/>
+-                <exclude name="managementapi*"/>
+-                <exclude name="qdox*"/>
++                <exclude name="jarjar*.jar"/>
++                <exclude name="aspectwerkz*.jar"/>
++                <exclude name="ant*.jar"/>
++                <exclude name="asm_asm*.jar"/>
++                <exclude name="concurrent*.jar"/>
++                <exclude name="junit*.jar"/>
++                <exclude name="management*.jar"/>
++                <exclude name="qdox*.jar"/>
+                 <include name="*.jar"/>
+             </zipgroupfileset>
+             <!-- add qdox manually to remove its META-INF/LICENSE.txt that is not the one of AW -->
+-            <zipfileset src="${lib.dir}/qdox-1.4.jar" excludes="META-INF/*"/>
++            <zipfileset src="${lib.dir}/qdox.jar" excludes="META-INF/*"/>
+         </jar>
+         <!-- nodeps -->
+         <jar destfile="${build.dir}/aspectwerkz-nodeps-jdk14-${version}.jar">
+@@ -347,7 +347,7 @@
+     </target>
+ 
+     <target name="test:weave" depends="init, dist, test:annotationc">
+-        <property name="weave.classpath" value="${java.home}/../lib/tools.jar${pathseparator}${lib.dir}/ant-1.5.2.jar${pathseparator}${test.classes}${pathseparator}${lib.dir}/aspectwerkz-core-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-jdk14-${version}.jar${pathseparator}${lib.dir}/piccolo-1.03.jar${pathseparator}${lib.dir}/qdox-1.4.jar${pathseparator}${lib.dir}/junit-3.8.1.jar${pathseparator}${lib.dir}/dom4j-1.4.jar"/>
++        <property name="weave.classpath" value="${java.home}/../lib/tools.jar${pathseparator}${lib.dir}/ant.jar${pathseparator}${test.classes}${pathseparator}${lib.dir}/aspectwerkz-core-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-jdk14-${version}.jar${pathseparator}${lib.dir}/piccolo.jar${pathseparator}${lib.dir}/qdox.jar${pathseparator}${lib.dir}/junit.jar${pathseparator}${lib.dir}/dom4j.jar"/>
+         <echo>${weave.classpath}</echo>
+ 
+         <java classname="org.codehaus.aspectwerkz.compiler.AspectWerkzC" fork="true" classpath="${weave.classpath}">
+@@ -370,10 +370,10 @@
+     <!--  tests that have been weaved offline -->
+     <!-- =================================================== -->
+     <target name="test:offline" depends="init, dist, test:annotationc, test:weave">
+-        <property name="offline.classpath" value="${java.home}/../lib/tools.jar${pathseparator}${lib.dir}/ant-1.5.2.jar${pathseparator}${test.classes}${pathseparator}${lib.dir}/aspectwerkz-core-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-jdk14-${version}.jar${pathseparator}${lib.dir}/piccolo-1.03.jar${pathseparator}${lib.dir}/qdox-1.4.jar${pathseparator}${lib.dir}/junit-3.8.1.jar${pathseparator}${lib.dir}/dom4j-1.4.jar"/>
++        <property name="offline.classpath" value="${java.home}/../lib/tools.jar${pathseparator}${lib.dir}/ant.jar${pathseparator}${test.classes}${pathseparator}${lib.dir}/aspectwerkz-core-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-jdk14-${version}.jar${pathseparator}${lib.dir}/piccolo.jar${pathseparator}${lib.dir}/qdox.jar${pathseparator}${lib.dir}/junit.jar${pathseparator}${lib.dir}/dom4j.jar"/>
+         <java
+             classname="test.AllTests"
+-            classpath="${offline.classpath}${pathseparator}${extensions.classes}${pathseparator}${test.classes}${pathseparator}${testdata.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit-3.8.1.jar${pathseparator}${lib.dir}/junitperf.jar"
++            classpath="${offline.classpath}${pathseparator}${extensions.classes}${pathseparator}${test.classes}${pathseparator}${testdata.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit.jar${pathseparator}${lib.dir}/junitperf.jar"
+             fork="true">
+             <jvmarg value="-Daspectwerkz.transform.dump=*"/>
+             <jvmarg value="-Daspectwerkz.definition.file=${src.dir}/test/aop.xml"/>
+@@ -388,10 +388,10 @@
+         <antcall target="test:offline:jdk15"/>
+     </target>
+     <target name="test:offline:jdk15" depends="init, dist, test:annotationc, test:weave" if="jdk15">
+-        <property name="offline.classpath" value="${java.home}/../lib/tools.jar${pathseparator}${lib.dir}/ant-1.5.2.jar${pathseparator}${test.classes}${pathseparator}${lib.dir}/aspectwerkz-jdk5-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-core-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-${version}.jar${pathseparator}${lib.dir}/qdox-1.4.jar${pathseparator}${lib.dir}/junit-3.8.1.jar${pathseparator}${lib.dir}/dom4j-1.4.jar"/>
++        <property name="offline.classpath" value="${java.home}/../lib/tools.jar${pathseparator}${lib.dir}/ant.jar${pathseparator}${test.classes}${pathseparator}${lib.dir}/aspectwerkz-jdk5-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-core-${version}.jar${pathseparator}${lib.dir}/aspectwerkz-${version}.jar${pathseparator}${lib.dir}/qdox.jar${pathseparator}${lib.dir}/junit.jar${pathseparator}${lib.dir}/dom4j.jar"/>
+         <java
+             classname="test.AllJdk5Tests"
+-            classpath="${offline.classpath}${pathseparator}${extensions.classes}${pathseparator}${test.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit-3.8.1.jar${pathseparator}${lib.dir}/junitperf.jar"
++            classpath="${offline.classpath}${pathseparator}${extensions.classes}${pathseparator}${test.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit.jar${pathseparator}${lib.dir}/junitperf.jar"
+             fork="true">
+             <jvmarg value="-Daspectwerkz.transform.dump=*"/>
+             <jvmarg value="-Daspectwerkz.definition.file=${src.dir}/jdk15/test/aop.xml"/>
+@@ -438,7 +438,7 @@
+     <!-- =================================================== -->
+     <target name="test" depends="clean, dist, test:annotationc">
+         <exec executable="${bin.dir}/aspectwerkz${executableSuffix}">
+-            <arg line="-cp ${basedir}/lib/aspectwerkz-extensions-${version}.jar${pathseparator}${test.src.dir}${pathseparator}${test.classes}${pathseparator}${testdata.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit-3.8.1.jar${pathseparator}${lib.dir}/junitperf.jar -Daspectwerkz.transform.dump=* -Daspectwerkz.definition.file=${src.dir}/test/aop.xml test.AllTests"/>
++            <arg line="-cp ${basedir}/lib/aspectwerkz-extensions-${version}.jar${pathseparator}${test.src.dir}${pathseparator}${test.classes}${pathseparator}${testdata.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit.jar${pathseparator}${lib.dir}/junitperf.jar -Daspectwerkz.transform.dump=* -Daspectwerkz.definition.file=${src.dir}/test/aop.xml test.AllTests"/>
+         </exec>
+         <antcall target="test:jdk15:call"/>
+     </target>
+@@ -466,7 +466,7 @@
+     <!-- =================================================== -->
+     <target name="test:perf" depends="clean, dist, test:annotationc">
+         <exec executable="${bin.dir}/aspectwerkz${executableSuffix}">
+-            <arg line="-cp ${test.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit-3.8.1.jar${pathseparator}${lib.dir}/junitperf.jar -Daspectwerkz.definition.file=${src.dir}/test/aop.xml test.xmldef.AllPerfTests"/>
++            <arg line="-cp ${test.classes}${pathseparator}${samples.classes}${pathseparator}${lib.dir}/junit.jar${pathseparator}${lib.dir}/junitperf.jar -Daspectwerkz.definition.file=${src.dir}/test/aop.xml test.xmldef.AllPerfTests"/>
+         </exec>
+     </target>
+ 
+@@ -624,7 +624,7 @@
+     <!-- =================================================== -->
+     <target name="samples:remote:server" depends="clean, dist, compile:samples, samples:annotationc">
+         <exec executable="${bin.dir}/aspectwerkz${executableSuffix}">
+-            <arg line="-cp ${basedir}${pathseparator}${lib.dir}/aspectwerkz-extensions-${version}.jar${pathseparator}${lib.dir}/ant-1.5.2.jar${pathseparator}${samples.classes} -Daspectwerkz.transform.dump=* -Daspectwerkz.resource.bundle=${src.dir}/samples/aspectwerkz.properties -Daspectwerkz.remote.server.run=true -Daspectwerkz.definition.file=${src.dir}/samples/aspectwerkz.xml examples.connectivity.Server"/>
++            <arg line="-cp ${basedir}${pathseparator}${lib.dir}/aspectwerkz-extensions-${version}.jar${pathseparator}${lib.dir}/ant.jar${pathseparator}${samples.classes} -Daspectwerkz.transform.dump=* -Daspectwerkz.resource.bundle=${src.dir}/samples/aspectwerkz.properties -Daspectwerkz.remote.server.run=true -Daspectwerkz.definition.file=${src.dir}/samples/aspectwerkz.xml examples.connectivity.Server"/>
+         </exec>
+     </target>
+ 
