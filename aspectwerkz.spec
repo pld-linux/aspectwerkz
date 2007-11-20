@@ -16,7 +16,6 @@ BuildRequires:	asm
 #BuildRequires:	concurrent
 #BuildRequires:	dom4j
 #BuildRequires:	gnu.trove
-BuildRequires:	rpm-javaprov
 #BuildRequires:	jarjar
 #BuildRequires:	javassist
 BuildRequires:	jdk
@@ -26,6 +25,7 @@ BuildRequires:	junit
 #BuildRequires:	junitperf
 #BuildRequires:	piccolo
 #BuildRequires:	qdox
+BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	concurrent
 Requires:	dom4j
@@ -63,8 +63,8 @@ pliku definicji XML lub Runtime Attributes.
 %package javadoc
 Summary:	Javadoc for %{name}
 Summary(pl.UTF-8):	Dokumentacja javadoc dla pakietu %{name}
-Requires:	jpackage-utils
 Group:		Documentation
+Requires:	jpackage-utils
 
 %description javadoc
 Javadoc for %{name}.
