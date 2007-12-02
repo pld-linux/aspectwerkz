@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	tests		# compile and run tests
+#
 %include	/usr/lib/rpm/macros.java
 Summary:	AOP for Java
 Summary(pl.UTF-8):	AOP dla Javy
@@ -13,20 +17,23 @@ Patch1:		%{name}2-script.patch
 URL:		http://aspectwerkz.codehaus.org/
 BuildRequires:	ant >= 1.6
 BuildRequires:	asm
-#BuildRequires:	concurrent
+BuildRequires:	concurrent
 #BuildRequires:	dom4j
-#BuildRequires:	gnu.trove
-#BuildRequires:	jarjar
-#BuildRequires:	javassist
+BuildRequires:	gnu.trove
+BuildRequires:	jarjar
+BuildRequires:	javassist
 BuildRequires:	jdk
 BuildRequires:	jpackage-utils
-#BuildRequires:	jrexx
+BuildRequires:	jrexx
 BuildRequires:	junit
-#BuildRequires:	junitperf
-#BuildRequires:	piccolo
-#BuildRequires:	qdox
+BuildRequires:	junitperf
+BuildRequires:	piccolo
+BuildRequires:	qdox
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
+%if %(locale -a | grep -q '^en_US$'; echo $?)
+BuildRequires:	glibc-localedb-all
+%endif
 Requires:	concurrent
 Requires:	dom4j
 Requires:	gnu.trove
@@ -103,28 +110,25 @@ chmod +x bin/aspectwerkz
 
 %build
 export ASPECTWERKZ_HOME=$RPM_BUILD_DIR/%{name}-%{version}
-build-jar-repository -s -p lib \
-jarjar \
-asm \
-asm-attrs \
-asm-util \
-dom4j \
-gnu.trove \
-concurrent \
-junit \
-jrexx \
-javassist \
-qdox \
-piccolo \
-junitperf \
+required_jars="
+jarjar
+asm
+asm-attrs
+asm-util
+dom4j
+gnu.trove
+concurrent
+junit
+jrexx
+javassist
+qdox
+piccolo
+junitperf
+"
+build-jar-repository -s -p lib "$required_jars" || :
 
-ln -sf %{_prefix}/lib/jvm/java-1.4.2-bea/jre/lib/managementapi.jar lib
-ln -sf %{_prefix}/lib/jvm/java-1.4.2-bea/jre/lib/managementserver.jar lib
-
-export JAVA_HOME=%{_prefix}/lib/jvm/java-1.5.0
-%ant test cleandist
-#export JAVA_HOME=%{_prefix}/lib/jvm/java-1.5.0
-#ant test
+export LC_ALL=en_US # source code not US-ASCII
+%ant compile compile:extensions %{?with_tests:compile:test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
