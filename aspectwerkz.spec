@@ -34,6 +34,7 @@ BuildRequires:	rpmbuild(macros) >= 1.300
 %if %(locale -a | grep -q '^en_US$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
+Requires:	jpackage-utils
 Requires:	concurrent
 Requires:	dom4j
 Requires:	gnu.trove
