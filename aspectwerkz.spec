@@ -21,27 +21,27 @@ BuildRequires:	concurrent
 #BuildRequires:	dom4j
 BuildRequires:	gnu.trove
 BuildRequires:	jarjar
+BuildRequires:	java-junit
+BuildRequires:	java-qdox
 BuildRequires:	javassist
 BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	jrexx
-BuildRequires:	junit
 BuildRequires:	junitperf
 BuildRequires:	piccolo
-BuildRequires:	qdox
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 %if %(locale -a | grep -q '^en_US$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
-Requires:	jpackage-utils
 Requires:	concurrent
-Requires:	dom4j
 Requires:	gnu.trove
+Requires:	java-dom4j
+Requires:	java-qdox
 Requires:	javassist
+Requires:	jpackage-utils
 Requires:	jrexx
 Requires:	piccolo
-Requires:	qdox
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
