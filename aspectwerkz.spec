@@ -2,7 +2,6 @@
 # Conditional build:
 %bcond_with	tests		# compile and run tests
 #
-%include	/usr/lib/rpm/macros.java
 Summary:	AOP for Java
 Summary(pl.UTF-8):	AOP dla Javy
 Name:		aspectwerkz
