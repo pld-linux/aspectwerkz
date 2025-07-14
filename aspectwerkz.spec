@@ -106,8 +106,8 @@ Przykłady dla pakietu %{name}.
 %setup -q
 find -name '*.jar' | xargs rm -vf
 chmod +x bin/aspectwerkz
-%patch0
-%patch1
+%patch -P0
+%patch -P1
 
 %build
 export ASPECTWERKZ_HOME=$RPM_BUILD_DIR/%{name}-%{version}
